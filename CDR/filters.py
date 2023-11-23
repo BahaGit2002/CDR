@@ -1,11 +1,12 @@
-# from django_filters import rest_framework
-# from CDR.models import CDR
-#
-#
-# class CRDFilter(rest_framework.FilterSet):
-#     start_time = rest_framework.DateTimeFilter(field_name='start_time', lookup_expr='gte')
-#     end_time = rest_framework.DateTimeFilter(field_name='end_time', lookup_expr='lte')
-#
-#     class Meta:
-#         model = CDR
-#         fields = ('start_time', 'end_time')
+import django_filters
+from CDR.models import CDR, CallStatus
+
+
+class CRDFilter(django_filters.FilterSet):
+    start_time = django_filters.DateTimeFilter(field_name='start_time', lookup_expr='gte')
+    end_time = django_filters.DateTimeFilter(field_name='start_time', lookup_expr='lte')
+    call_status = django_filters.ChoiceFilter(field_name='call_status', choices=CallStatus.choices)
+
+    class Meta:
+        model = CDR
+        fields = ('start_time', 'end_time', 'call_status', 'calling_number')
